@@ -52,7 +52,8 @@ never file names or contents, and it makes no network connections.
 
 ## Use
 
-Click the islo item in the menu bar to pick a theme, pause, or quit.
+Click the islo item in the menu bar to pick a theme, pause, quit, or have islo
+start when you log in.
 
 Command-line options, mostly useful when working on themes:
 
@@ -66,7 +67,6 @@ Command-line options, mostly useful when working on themes:
 
 - The scene is drawn on the main display only.
 - Finder reports an icon's new position when you drop it, not while you drag.
-- There is no launch-at-login setting yet; add islo to your Login Items by hand.
 
 ## How it works
 

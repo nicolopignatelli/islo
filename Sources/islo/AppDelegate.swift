@@ -1,7 +1,8 @@
 import AppKit
 import MetalKit
+import ServiceManagement
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private var window: NSWindow!
     private var view: MTKView!
     private var renderer: Renderer!
@@ -9,6 +10,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private var statusLine: NSMenuItem!
     private var pauseItem: NSMenuItem!
+    private var loginItem: NSMenuItem?
     private let model = IslandModel()
     private var userPaused = false
     private var mouseMonitor: Any?
@@ -131,6 +133,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         pauseItem = NSMenuItem(title: "Pause", action: #selector(togglePause), keyEquivalent: "")
         pauseItem.target = self
         menu.addItem(pauseItem)
+        // Login items belong to an app bundle; the bare binary has none to offer.
+        if Bundle.main.bundleIdentifier != nil {
+            let item = NSMenuItem(title: "Launch at Login", action: #selector(toggleLaunchAtLogin), keyEquivalent: "")
+            item.target = self
+            menu.addItem(item)
+            loginItem = item
+            menu.delegate = self
+        }
         menu.addItem(NSMenuItem(title: "Quit islo", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         statusItem.menu = menu
     }
@@ -153,6 +163,31 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         userPaused.toggle()
         pauseItem.title = userPaused ? "Resume" : "Pause"
         applyActivity()
+    }
+
+    /// The setting can also be changed in System Settings, so the tick is
+    /// read afresh each time the menu opens.
+    func menuWillOpen(_ menu: NSMenu) {
+        loginItem?.state = SMAppService.mainApp.status == .enabled ? .on : .off
+    }
+
+    @objc private func toggleLaunchAtLogin() {
+        let service = SMAppService.mainApp
+        do {
+            if service.status == .enabled {
+                try service.unregister()
+            } else {
+                try service.register()
+                // Registered, but switched off by the user in System Settings: only they can turn it back on.
+                if service.status == .requiresApproval { SMAppService.openSystemSettingsLoginItems() }
+            }
+        } catch {
+            let alert = NSAlert()
+            alert.messageText = "islo could not change its login setting"
+            alert.informativeText = error.localizedDescription
+            NSApp.activate(ignoringOtherApps: true)
+            alert.runModal()
+        }
     }
 
     @objc private func visibilityChanged() {
