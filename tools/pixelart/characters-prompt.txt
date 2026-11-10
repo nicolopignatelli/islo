@@ -1,0 +1,11 @@
+A sprite sheet of three original fantasy RPG characters in authentic 16-bit era console pixel art, in the style of the overworld walking sprites of early-1990s Japanese role-playing games. True pixel art: hard square pixels, no anti-aliasing, no gradients, no blur, limited palette of about 14 colours per character, dark coloured outlines, three-tone shading lit from the upper left.
+
+Layout: a strict grid of 9 columns and 3 rows on a perfectly flat solid magenta (#FF00FF) background, with nothing else in the image: no text, no labels, no borders, no grid lines, no shadows on the ground. Every sprite is the same size, centred in its cell, drawn as a 16 pixel wide by 24 pixel tall sprite (large head, compact body, classic proportions) and shown enlarged with crisp pixels.
+
+Row 1: a stern young swordsman, tawny brown hair, steel pauldrons over a dark blue tabard, leather belt and boots, a greatsword slung across his back.
+Row 2: a sorceress with long dark plum hair and a thin gold circlet, a pale grey-cream robe with a wine-red centre stripe, holding a wooden staff topped with a pale blue crystal.
+Row 3: a wary archer with dark skin, short black hair under a red headband, an olive green tunic, leather boots, a longbow and a quiver of arrows.
+
+Columns, the same for every row: columns 1-3 are the character walking toward the viewer (facing front): left foot forward, standing with feet together, right foot forward. Columns 4-6 are the character walking to the right in profile: stride, feet together, opposite stride. Columns 7-9 are the character walking away from the viewer (seen from behind): left foot forward, feet together, right foot forward.
+
+Each character must look identical in colours, costume and proportions across all nine of its cells. Muted, slightly desaturated, serious palette, not cute, not chibi-cartoonish, not glossy.

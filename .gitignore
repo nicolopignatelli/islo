@@ -1,0 +1,12 @@
+.build/
+dist/
+.swiftpm/
+*.xcodeproj
+xcuserdata/
+DerivedData/
+.DS_Store
+.playwright-mcp/
+.claude/
+.env
+tools/pixelart/out/
+__pycache__/
